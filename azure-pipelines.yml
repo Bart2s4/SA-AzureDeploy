@@ -14,6 +14,16 @@ stages:
             vmimage: windows-latest
           steps:
           
+          - task: CopyFiles@2
+            inputs:
+              Contents: '**\StorageAccount\*'
+              TargetFolder: '$(build.artifactstagingdirectory)'
+          
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Pipeline.Workspace)'
+              artifact: 'drop-arm'
+              publishLocation: 'pipeline'
           
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
@@ -24,8 +34,8 @@ stages:
               resourceGroupName: 'RG-ARMdeploymentTest'
               location: 'West Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '$(BuildPipeline.workspace)/StorageAccount/azuredeploy.json'
-              csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
+              csmFile: '$(Build.SourceDirectory)\StorageAccount\azuredeploy.json'
+              csmParametersFile: '$(Build.SourcesDirectory)\StorageAccount\azuredeploy.parameters.json'
               deploymentMode: 'Validation'
               
           - task: PowerShell@2
