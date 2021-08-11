@@ -13,6 +13,8 @@ stages:
           pool:
             vmimage: windows-latest
           steps:
+          
+          
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
@@ -22,7 +24,7 @@ stages:
               resourceGroupName: 'RG-ARMdeploymentTest'
               location: 'West Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.json'
+              csmFile: '$(BuildPipeline.workspace)/StorageAccount/azuredeploy.json'
               csmParametersFile: '$(Build.SourcesDirectory)/StorageAccount/azuredeploy.parameters.json'
               deploymentMode: 'Validation'
               
