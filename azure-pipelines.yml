@@ -34,9 +34,9 @@ stages:
               resourceGroupName: 'RG-ARMdeploymentTest'
               location: 'West Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '$(Build.SourceDirectory)\StorageAccount\azuredeploy.json'
-              csmParametersFile: '$(Build.SourcesDirectory)\StorageAccount\azuredeploy.parameters.json'
-              deploymentMode: 'Validation'
+              csmFile: '$(Build.ArtifactStagingDirectory)\StorageAccount\azuredeploy.json'
+              csmParametersFile: '$(Build.ArtifactStagingDirectory)\StorageAccount\azuredeploy.parameters.json'
+              deploymentMode: 'Incremental'
               
           - task: PowerShell@2
             inputs:
